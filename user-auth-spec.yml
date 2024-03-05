@@ -1,0 +1,247 @@
+openapi: 3.1.0
+info:
+  title: User Authentication Service
+  description: |
+    This API allows for registration and authentication of users
+    as well as admin functions related to user management.
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8081/public-library/auth/v1
+paths:
+  /register:
+    post:
+      summary: Register new user
+      description: create a new user with submitted details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/user"
+      responses:
+        "204":
+          description: user successfully registered
+        "400":
+          description: bad request
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+  /login:
+    post:
+      requestBody:
+        description: details of user attempting to login
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/user"
+      responses:
+        "204":
+          description: user successfully logged in
+        "400":
+          description: bad request
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+        "404":
+          description: user not found
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+  /user:
+    get:
+      summary: Get current user
+      description: get the details of the currently logged in user
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type:
+                  $ref: "#/components/schemas/user"
+        "401":
+          description: unauthorised
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+    put:
+      summary: Update user profile
+      description: update details of currently logged in user's profile
+      requestBody:
+        description: full updated attributes of user
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schema/user"
+      responses:
+        "204":
+          description: profile successfully updated
+        "400":
+          description: bad request
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+        "401":
+          description: unauthorised
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+  /user/{id}:
+    summary: Edit users by ID
+    description: admin only endpoint to edit user details
+    get:
+      parameters:
+        $ref: "#/components/parameters/userId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+        "401":
+          description: unauthorised
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+        "404":
+          description: user not found
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+    put:
+      parameters:
+        $ref: "#/components/parameters/userId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/user"
+      responses:
+        "204":
+          description: user successfully updated
+        "400":
+          description: bad request
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+        "401":
+          description: unauthorised
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+        "404":
+          description: user not found
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+    delete:
+      parameters:
+        $ref: "#/components/parameters/userId"
+      responses:
+        "204":
+          description: user successfully deleted
+        "400":
+          description: bad request
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+        "401":
+          description: unauthorised
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+        "404":
+          description: user not found
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                "#/components/schemas/error"
+components:
+  schemas:
+    user:
+      description: Full profile details of a library user
+      type: object
+      properties:
+        userId:
+          type: integer
+          minimum: 0
+        name:
+          type: string
+        age:
+          type: integer
+          minimum: 0
+          maximum: 120
+        history:
+          description: History of user's book loans
+          type: array
+          items:
+            $ref: "./public-library-spec.yml#/components/schemas/bookOverview"
+    error:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        message:
+          type: string
+  parameters:
+    - name: userId
+      in: path
+      type: integer
+      required: true
