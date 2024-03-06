@@ -15,11 +15,7 @@ paths:
       description: gets paginated list of all books in the collection
       parameters:
         - $ref: "#/components/parameters/term"
-        - name: available
-          in: query
-          description: Only return books which are not currently checked out
-          schema:
-            type: boolean
+        - $ref: "#/components/parameters/available"
       responses:
         "200":
           description: "OK"
@@ -28,7 +24,15 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/bookOverview"
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    author:
+                      type: string
+                    coverUrl:
+                      description: URL pointing to the cover image of the book
+                      type: string
         "400":
           description: invalid sort parameter was used
           content:
@@ -53,6 +57,7 @@ paths:
       description: gets list of all books matching a certain search criterion
       parameters:
         - $ref: "#/components/parameters/term"
+        - $ref: "#/components/parameters/available"
       responses:
         "200":
           description: "OK"
@@ -61,7 +66,15 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/bookOverview"
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    author:
+                      type: string
+                    coverUrl:
+                      description: URL pointing to the cover image of the book
+                      type: string
         "400":
           description: invalid parameters passed in
           content:
@@ -250,18 +263,24 @@ components:
           type: string
   parameters:
     term:
-      - name: term
-        description: Term for sorting or searching results by
-        in: query
-        schema:
-          type: string
-          enum:
-            - title
-            - author
-            - bookType
+      name: term
+      description: Term for sorting or searching results by
+      in: query
+      schema:
+        type: string
+        enum:
+          - title
+          - author
+          - bookType
+    available:
+      name: available
+      in: query
+      description: Only return books which are not currently checked out
+      schema:
+        type: boolean
     bookId:
-      - name: bookId
-        in: path
-        required: true
-        schema:
-          type: integer
+      name: bookId
+      in: path
+      required: true
+      schema:
+        type: integer
