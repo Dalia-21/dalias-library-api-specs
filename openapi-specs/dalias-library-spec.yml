@@ -14,15 +14,11 @@ paths:
       summary: Get all books
       description: gets paginated list of all books in the collection
       parameters:
-        - name: sortBy
+        - name: sortTerm
           in: query
           description: Category to sort results by
           schema:
-            type: string
-            enum:
-              - title
-              - author
-              - bookType
+            $ref: "#/components/parameters/term"
         - name: available
           in: query
           description: Only return books which are not currently checked out
@@ -63,7 +59,8 @@ paths:
         - name: searchTerm
           in: query
           type: string
-        - $ref: "#/components/parameters/term"
+          schema:
+            $ref: "#/components/parameters/term"
       responses:
         "200":
           description: "OK"
@@ -96,7 +93,10 @@ paths:
       summary: Retrieve a book
       description: gets the full details of a book
       parameters:
-        $ref: "#/components/parameters/bookId"
+        - name: bookId
+          in: path
+          type: integer
+          required: true
       responses:
         "200":
           description: "OK"
@@ -119,7 +119,10 @@ paths:
                 $ref: "#/components/schemas/error"
     put:
       parameters:
-        $ref: "#/components/parameters/bookId"
+        - name: bookId
+          in: path
+          type: integer
+          required: true
       requestBody:
         description: Create or update a book entry
         required: true
@@ -175,8 +178,8 @@ paths:
                 $ref: "#/components/schemas/error"
   /borrow:
     post:
+      description: Borrow a book for the current user
       requestBody:
-        description: Borrow a book for the current user
         required: true
         content:
           application/json:
