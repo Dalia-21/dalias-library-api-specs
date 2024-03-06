@@ -26,13 +26,13 @@ paths:
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "500":
           description: internal server error
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
   /login:
     post:
       requestBody:
@@ -50,25 +50,26 @@ paths:
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "404":
           description: user not found
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "500":
           description: internal server error
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
   /user:
     get:
       summary: Get current user
       description: get the details of the currently logged in user
       responses:
         "200":
+          description: "OK"
           content:
             application/json:
               schema:
@@ -79,13 +80,13 @@ paths:
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "500":
           description: internal server error
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
     put:
       summary: Update user profile
       description: update details of currently logged in user's profile
@@ -104,25 +105,25 @@ paths:
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "401":
           description: unauthorised
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "500":
           description: internal server error
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
   /user/{id}:
     summary: Edit users by ID
     description: admin only endpoint to edit user details
     get:
       parameters:
-        $ref: "#/components/parameters/userId"
+        - $ref: "#/components/parameters/userId"
       responses:
         "200":
           description: OK
@@ -135,22 +136,22 @@ paths:
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "404":
           description: user not found
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "500":
           description: internal server error
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
     put:
       parameters:
-        $ref: "#/components/parameters/userId"
+        - $ref: "#/components/parameters/userId"
       requestBody:
         content:
           application/json:
@@ -164,28 +165,28 @@ paths:
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "401":
           description: unauthorised
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "404":
           description: user not found
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "500":
           description: internal server error
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
     delete:
       parameters:
-        $ref: "#/components/parameters/userId"
+        - $ref: "#/components/parameters/userId"
       responses:
         "204":
           description: user successfully deleted
@@ -194,25 +195,25 @@ paths:
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "401":
           description: unauthorised
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "404":
           description: user not found
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "500":
           description: internal server error
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
 components:
   schemas:
     user:
@@ -232,7 +233,7 @@ components:
           description: History of user's book loans
           type: array
           items:
-            $ref: "./public-library-spec.yml#/components/schemas/bookOverview"
+            $ref: "./dalias-library-spec.yaml#/components/schemas/bookOverview"
     error:
       type: object
       properties:
