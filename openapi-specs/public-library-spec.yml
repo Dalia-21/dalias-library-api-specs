@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Public Library Service
+  title: "Dalia's Library Service"
   description: |
     This API allows browsing a book collection and borrowing books
     as well as admin functions related to administration of
