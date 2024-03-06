@@ -14,11 +14,7 @@ paths:
       summary: Get all books
       description: gets paginated list of all books in the collection
       parameters:
-        - name: sortTerm
-          in: query
-          description: Category to sort results by
-          schema:
-            $ref: "#/components/parameters/term"
+        - $ref: "#/components/parameters/term"
         - name: available
           in: query
           description: Only return books which are not currently checked out
@@ -56,11 +52,7 @@ paths:
       summary: Search for books
       description: gets list of all books matching a certain search criterion
       parameters:
-        - name: searchTerm
-          in: query
-          type: string
-          schema:
-            $ref: "#/components/parameters/term"
+        - $ref: "#/components/parameters/term"
       responses:
         "200":
           description: "OK"
@@ -93,11 +85,7 @@ paths:
       summary: Retrieve a book
       description: gets the full details of a book
       parameters:
-        - name: bookId
-          in: path
-          required: true
-          schema:
-            type: integer
+        - $ref: "#/components/parameters/bookId"
       responses:
         "200":
           description: "OK"
@@ -120,11 +108,7 @@ paths:
                 $ref: "#/components/schemas/error"
     put:
       parameters:
-        - name: bookId
-          in: path
-          required: true
-          schema:
-            type: integer
+        - $ref: "#/components/parameters/bookId"
       requestBody:
         description: Create or update a book entry
         required: true
@@ -155,7 +139,7 @@ paths:
                 $ref: "#/components/schemas/error"
     delete:
       parameters:
-        $ref: "#/components/parameters/bookId"
+        - $ref: "#/components/parameters/bookId"
       requestBody:
         description: Delete a book entry
         required: true
@@ -192,7 +176,8 @@ paths:
           description: "OK - returns due date for returning book"
           content:
             application/json:
-              type: date
+              schema:
+                type: date
         "400":
           description: bad request format
           content:
@@ -265,13 +250,18 @@ components:
           type: string
   parameters:
     term:
-      type: string
-      enum:
-        - title
-        - author
-        - bookType
+      - name: term
+        description: Term for sorting or searching results by
+        in: query
+        schema:
+          type: string
+          enum:
+            - title
+            - author
+            - bookType
     bookId:
       - name: bookId
         in: path
-        type: integer
         required: true
+        schema:
+          type: integer
