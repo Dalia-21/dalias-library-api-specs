@@ -42,19 +42,19 @@ paths:
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "404":
           description: no books were found
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "500":
           description: internal server error
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
   /library/search:
     get:
       summary: Search for books
@@ -78,19 +78,19 @@ paths:
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "404":
           description: no books were found matching those search criteria
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "500":
           description: internal server error
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
   /book/{id}:
     get:
       summary: Retrieve a book
@@ -110,13 +110,13 @@ paths:
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "500":
           description: internal server error
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
     put:
       parameters:
         $ref: "#/components/parameters/bookId"
@@ -135,19 +135,19 @@ paths:
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "404":
           description: book not found
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "500":
           description: internal server error
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
     delete:
       parameters:
         $ref: "#/components/parameters/bookId"
@@ -166,13 +166,13 @@ paths:
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "500":
           description: internal server error
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
   /borrow:
     post:
       requestBody:
@@ -194,19 +194,19 @@ paths:
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "404":
           description: book or user not found
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
         "500":
           description: internal server error
           content:
             application/json:
               schema:
-                "#/components/schemas/error"
+                $ref: "#/components/schemas/error"
 components:
   schemas:
     book:
