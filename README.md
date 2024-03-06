@@ -1,2 +1,2 @@
-# public-library-api-specs
-OpenAPI specs for the Public Library project
+# dalias-library-api-specs
+OpenAPI specs for the Dalia's Library project
