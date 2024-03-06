@@ -28,7 +28,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/bookOverview"
+                  type: $ref: "#/components/schemas/bookOverview"
         "400":
           description: invalid sort parameter was used
           content:
@@ -61,7 +61,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/bookOverview"
+                  type: $ref: "#/components/schemas/bookOverview"
         "400":
           description: invalid parameters passed in
           content:
