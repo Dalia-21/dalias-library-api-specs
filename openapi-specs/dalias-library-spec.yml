@@ -95,8 +95,9 @@ paths:
       parameters:
         - name: bookId
           in: path
-          type: integer
           required: true
+          schema:
+            type: integer
       responses:
         "200":
           description: "OK"
@@ -121,8 +122,9 @@ paths:
       parameters:
         - name: bookId
           in: path
-          type: integer
           required: true
+          schema:
+            type: integer
       requestBody:
         description: Create or update a book entry
         required: true
@@ -187,10 +189,9 @@ paths:
               $ref: "#/components/schemas/book"
       responses:
         "200":
-          description: "OK"
+          description: "OK - returns due date for returning book"
           content:
             application/json:
-              description: Due date for returning book
               type: date
         "400":
           description: bad request format
@@ -264,9 +265,6 @@ components:
           type: string
   parameters:
     term:
-      name: term
-      in: query
-      description: Term to sort or search books by
       type: string
       enum:
         - title
