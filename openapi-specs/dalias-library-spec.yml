@@ -13,6 +13,7 @@ paths:
     get:
       summary: Get all books
       description: gets paginated list of all books in the collection
+      operationId: getLibrary
       parameters:
         - $ref: "#/components/parameters/term"
         - $ref: "#/components/parameters/available"
@@ -55,6 +56,7 @@ paths:
     get:
       summary: Search for books
       description: gets list of all books matching a certain search criterion
+      operationId: searchLibrary
       parameters:
         - $ref: "#/components/parameters/term"
         - $ref: "#/components/parameters/available"
@@ -97,6 +99,7 @@ paths:
     get:
       summary: Retrieve a book
       description: gets the full details of a book
+      operationId: getBook
       parameters:
         - $ref: "#/components/parameters/bookId"
       responses:
@@ -120,10 +123,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/error"
     put:
+      summary: Create or update book
+      description: create or update a book entry
+      operationId: createBook
       parameters:
         - $ref: "#/components/parameters/bookId"
       requestBody:
-        description: Create or update a book entry
         required: true
         content:
           application/json:
@@ -151,10 +156,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/error"
     delete:
+      summary: Delete book
+      description: delete a book entry
+      operationId: deleteBook
       parameters:
         - $ref: "#/components/parameters/bookId"
       requestBody:
-        description: Delete a book entry
         required: true
         content:
           application/json:
@@ -177,7 +184,9 @@ paths:
                 $ref: "#/components/schemas/error"
   /borrow:
     post:
-      description: Borrow a book for the current user
+      summary: Borrow book
+      description: borrow a book for the current user
+      operationId: borrowBook
       requestBody:
         required: true
         content:
@@ -190,7 +199,9 @@ paths:
           content:
             application/json:
               schema:
-                type: date
+                type: string
+                format: date
+                example: "2010-10-31"
         "400":
           description: bad request format
           content:
